@@ -5,8 +5,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { ref, inject, shallowRef, computed } from 'vue'
 import { apiSculpture } from '../api/mc3d'
 
-import { downloadFile } from '../utils/autoDownload'
-
 const globalModal = inject('globalModal')
 const waitTask = inject('waitTask')
 const shareModal = inject('shareModal')

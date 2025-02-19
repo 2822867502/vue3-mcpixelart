@@ -6,8 +6,27 @@ const blocksStore = useBlocksStore()
 const ecMap = blocksStore.ecMap
 const offsetMap = blocksStore.offsetMap
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 const selected = ref(false)
+/**将个数转化为 盒+组+个的形式 */
+const countDetail = (count) => {
+  if (count < 64) return ''
+  let num = count
+  let group = Math.floor(num / 64)
+  let box = Math.floor(group / 27)
+  let str = ''
+  if (box > 0) {
+    str = `${box}盒`
+    group -= box * 27
+    num -= box * 27 * 64
+  }
+  if (group > 0) {
+    str += `${group}组`
+    num -= group * 64
+  }
+  str += `${num}个`
+  return str
+}
 </script>
 
 <template>
@@ -18,7 +37,8 @@ const selected = ref(false)
       <span>{{ ecMap[block.name] }}</span>
     </div>
     <!-- 显示数量 -->
-    <span>{{ block.count }}</span>
+      <span>{{ block.count }}</span>
+      <span>{{ countDetail(block.count) }}</span>
   </div>
 </template>
 

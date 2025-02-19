@@ -4,7 +4,6 @@ import { Midi } from '@tonejs/midi'
 import { make, adjustTracks } from '../utils/MIDI'
 import MIDITrack from '../components/MIDITrack.vue'
 import { apiMusic } from '../api/mcMusic'
-import { downloadFile } from '../utils/autoDownload'
 
 import constant from '../assets/data/constant.json'
 import { useBlocksStore } from '../store/blocksArt'
@@ -122,9 +121,9 @@ const tracksInfo = computed(() => {
 
 function showMethodHelp() {
   const str = 
-  `MIDI标准规定了128种乐器和128个音高,MC中只有16种乐器,每个乐器都只能演奏25个 半音 <br> 
-  组合不同乐器最多获得F#1~F#7(72个半音)的音域,因此<span class="text-bg-danger rounded-1">红石音乐失真是不可避免的</span> <br> 
-  以下是本站提供的三种折中方案:
+  `MIDI标准规定了128种乐器和128个音高,MC中只有16种乐器,每个乐器都只能演奏25个半音。<br> 
+  组合不同乐器最多获得F#1~F#7(72个半音)的音域,因此<span class="text-bg-danger rounded-1">红石音乐失真是不可避免的。</span> <br> 
+  为了尽可能还原，减少失真，本站提供三种折中方案:
   <hr>
   <span class="badge text-bg-primary">八度折叠</span>将音高移动若干个八度到F#3~F#5内,音域窄,容易发生失真 <br>
   <span class="badge text-bg-primary">音高优先</span>优先将音高落入F#1~F#7的音域,<span class="text-bg-success rounded-1">乐曲音高连贯性好</span>,但可能会改变乐器(音色) <br>

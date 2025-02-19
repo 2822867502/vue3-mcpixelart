@@ -156,6 +156,7 @@ const submit = () => {
     <ImageCropper 
       class="image-cropper"
       :imageSrc="imageSrc"
+      :current="imageH > 0 ? line / imageH : 0"
     />
     <!-- 用户操作区 -->
     <div class="flex fcol" style="color: bisque;gap: 5px;">
@@ -164,13 +165,8 @@ const submit = () => {
         <button class="btn btn-sm btn-info" @click="changeLine(-1)">-</button>
         <input class="form-control" type="text" id="nplInput" v-model="iptLine">
         <button class="btn btn-sm btn-info" @click="changeLine(1)">+</button>
-        <label class="input-group-text" for="nplSelect">每行个数:</label>
-        <select class="form-select" id="nplSelect" v-model="numPerLine">
-          <option value="4" selected>4</option>
-          <option value="8">8</option>
-          <option value="16">16</option>
-          <option value="32">32</option>
-        </select>
+        <label class="input-group-text" for="nplNum">每行个数:</label>
+        <input class="form-control" type="text" id="nplNum" v-model="numPerLine">
       </div>
     </div>
     <!-- 显示选中的方块信息 -->
@@ -188,8 +184,8 @@ const submit = () => {
         <div
           v-for = "(block, bIndex) in blocksLine" :key="`bl${blIndex}b${bIndex}`"
           class="cell gap-row"
-          :style="`background-position: -${blocksStore.xyMap[block][0] * 32}px -${blocksStore.xyMap[block][1] * 32}px;`"
-          @click="selectedBlock = {name: blocksStore.ecMap[block], row: blIndex + 1, col: bIndex + 1, index: blIndex * npl + bIndex + 1}"
+          :style="`background-position: -${(block === 'air' ? 47 : blocksStore.xyMap[block][0]) * 32}px -${(block === 'air' ? 47 : blocksStore.xyMap[block][1]) * 32}px;`"
+          @click="selectedBlock = {name: (block === 'air' ? '无' : blocksStore.ecMap[block]), row: blIndex + 1, col: bIndex + 1, index: blIndex * npl + bIndex + 1}"
         ></div>
       </div>
     </div>
@@ -216,11 +212,13 @@ const submit = () => {
   margin: 10px 0;
 }
 .cell {
+  background-color: #ffffff00;
   background-image: url('/src/assets/img/BlockCSS2.png');
   width: 32px;
   height: 32px;
   border-radius: 4px;
   display: inline-block;
+  border: 1px dotted green;
 }
 
 // 每八个为一组

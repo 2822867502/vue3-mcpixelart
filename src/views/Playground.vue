@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onActivated, ref } from 'vue'
+import { computed, onActivated, onMounted, ref } from 'vue'
 const opt = ref({
   sort: 'random',
   filter: 'all',
@@ -32,9 +32,13 @@ function handlePageChange(page) {
   currentPage.value = page
 }
 
-onActivated(() => {
+onMounted(() => {
   loadData()
 })
+
+// onActivated(() => {
+//   loadData()
+// })
 </script>
 
 <template>

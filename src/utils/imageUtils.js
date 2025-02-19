@@ -229,7 +229,12 @@ export default {
 
         for (let y = 0;y < h;y++) {
           for (let x = 0;x < w;x++) {
-            const [m, n] = blocksStore.xyMap[array[y][x]]
+            let m,n
+            if (array[y][x] === 'air') {
+              [m, n] = [47, 47]
+            } else {
+              [m, n] = blocksStore.xyMap[array[y][x]]
+            }
             // 在 (x, y) 位置绘制从 (m, n) 处截取的 8x8 区域
             ctx.drawImage(img, m * 16, n * 16, 16, 16, x * 8, y * 8, 8, 8)
           }

@@ -15,8 +15,9 @@
       <div 
         class="mask" 
         :style="`width:${mask.width}px;height:${mask.height}px;transform:translate(${mask.x}px,${mask.y}px)`">
-
       </div>
+      <!-- 遮罩显示当前行 -->
+       <div class="npl" :style="{'transform': `translateY(${current * 200}px)`}"></div>
     </div>
     <!-- 大图只显示一部分 -->
     <div 
@@ -36,6 +37,11 @@ export default {
       type: String,
       required: true
     },
+    current: {
+      type: Number,
+      required: false,
+      default: 0,
+    }
   },
   created() {
     window.addEventListener('resize',this.calcMask)
@@ -79,6 +85,7 @@ export default {
     }
   },
   computed: {
+
     //返回小图和大图的dom实际宽高
     domInfo() {
       return {
@@ -190,6 +197,7 @@ export default {
     width: 200px;
     height: 200px;
     border: none;
+    overflow: hidden;
   }
 
   .image-null {
@@ -225,7 +233,7 @@ export default {
     left: 0;
     overflow: hidden;
     border: dashed 1px purple;
-    z-index: 2;
+    z-index: 5;
   }
 
   .mask::before {  
@@ -243,6 +251,29 @@ export default {
       rgba(0, 0, 0, 0) 10px /* 重复间距 */
     );
     pointer-events: none;
+  }
+
+  .npl {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    background-color: red;
+    animation: backgroundGradient 1s infinite ease;
+  }
+ 
+  @keyframes backgroundGradient {
+    0% {
+      background-color: red;
+    }
+    50% {
+      background-color: rgba(255, 0, 0, 0);
+    }
+    100% {
+      background-color: red;
+    }
   }
 
   .image-big {
