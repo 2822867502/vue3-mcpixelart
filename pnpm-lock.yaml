@@ -23,6 +23,12 @@ importers:
       js-cookie:
         specifier: 2.2.1
         version: 2.2.1
+      pako:
+        specifier: ^2.1.0
+        version: 2.1.0
+      pickleparser:
+        specifier: ^0.2.1
+        version: 0.2.1
       pinia:
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.13)
@@ -603,9 +609,16 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
+  pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
+
   parse-node-version@1.0.1:
     resolution: {integrity: sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==}
     engines: {node: '>= 0.10'}
+
+  pickleparser@0.2.1:
+    resolution: {integrity: sha512-kMzY3uFYcR6OjOqr7nV2nkaXaBsUEOafu3zgPxeD6s/2ueMfVQH8lrymcDWBPGx0OkVxGMikxQit6jgByXjwBg==}
+    hasBin: true
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -1196,7 +1209,11 @@ snapshots:
   node-addon-api@7.1.1:
     optional: true
 
+  pako@2.1.0: {}
+
   parse-node-version@1.0.1: {}
+
+  pickleparser@0.2.1: {}
 
   picocolors@1.1.1: {}
 

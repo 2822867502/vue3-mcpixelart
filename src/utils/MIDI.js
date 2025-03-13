@@ -148,7 +148,7 @@ const mcInstrumentMap = {
   "hat": [54 + 24, 78 + 24],  // F#5 - F#7
   "basedrum": [54 - 24, 78 - 24]  // F#1 - F#3
 }
-/**MC中乐器的音域 */
+/**MC中乐器名称 */
 export const instrumentNameMap = {
   "bass": '贝斯',
   "bell": '钟琴',

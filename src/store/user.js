@@ -44,13 +44,16 @@ export const useUserStore = defineStore('user', {
       // 每个uid只查询一次
       const uidSet = new Set()
       data.map(({ uid }) => {
-        uidSet.add(uid)
-      })
-      uidSet.forEach(uid => {
         if (!this.userUidMap.has(uid)) {
-          apiGetUname({uid})
-          .then(([{uname}]) => this.userUidMap.set(uid, uname))
+          uidSet.add(uid)
         }
+      })
+      const uidArr = Array.from(uidSet)
+      apiGetUname(uidArr)
+      .then(ulist => {
+        ulist.forEach(({uid, uname}) => {
+          this.userUidMap.set(uid, uname)
+        })
       })
     },
     // 改名

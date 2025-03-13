@@ -3,6 +3,10 @@ import { toRefs, inject, watch, ref, computed } from 'vue'
 import { useUserStore } from '../store/user'
 import { apiChangeName, apiGetHistory } from '../api/user'
 import { apiShare } from '../api/share'
+import { apiPlaygroundLoad, pretreat } from '../api/playground'
+import imageUtils from '../utils/imageUtils'
+import { useBlocksStore } from '../store/blocksArt'
+const blocksStore = useBlocksStore()
 const userStore = useUserStore()
 const props = defineProps(['status'])
 const { status } = toRefs(props)
@@ -60,6 +64,8 @@ const worksFormatted = computed(() => {
     name: work.name,
     share: work.share === 1,
     type: typeText(work.type),
+    type_en: work.type,
+    hot: work.hot,
     time: dateTimeStr(work.time),
     address: downloadAddress(work.type, work.fname)
   }))
@@ -110,12 +116,46 @@ function handleShare(fname, type, ashare) {
   }
 }
 
-
-
+/**是否能预览 */
+function canPreview(type) {
+  return ['art', 'enhance'].includes(type)
+}
+/**是否在展示预览图 */
+const isShowPreview = ref(false)
+/**预览图信息 */
+const preview = ref({
+  // 图片url
+  src: '',
+  type: '',
+  // 文件url
+  file: '',
+  h: 0,
+  w: 0,
+})
+/**展示预览图 */
+async function showPreview(type, fname) {
+  isShowPreview.value = true
+  preview.value.src = ''
+  const obj = await apiPlaygroundLoad(`/${type}/${fname}`)
+  const pre = pretreat(type, obj)
+  preview.value.h = pre.h
+  preview.value.w = pre.w
+  preview.value.src = await imageUtils.rebuildImage(blocksStore.xyMap,pre.matrix)
+}
 </script>
 <template>
   <Teleport to="body">
     <div v-if="status.visiable" class="modal-overlay" @click="close">
+      <!-- 预览图 -->
+      <div class="preview-container flex fcen" v-show="isShowPreview" @click.stop="isShowPreview = false">
+        
+        <div v-if="preview.src" class="flex fcol fcen">
+          <span>{{ preview.w }} * {{ preview.h }}</span>
+          <img :src="preview.src" alt="预览图" class="preview">
+        </div>
+        <div v-else class="loader"></div>
+        
+      </div>
       <div class="modal-content" @click.stop>
         <nav>
           <div class="nav nav-tabs" role="tablist">
@@ -144,6 +184,7 @@ function handleShare(fname, type, ashare) {
                   <th>作品</th>
                   <th>类型</th>
                   <th>创建时间</th>
+                  <th>被赞</th>
                   <th>是否分享</th>
                   <th>操作</th>
                 </tr>
@@ -153,11 +194,13 @@ function handleShare(fname, type, ashare) {
                   <td>{{ item.name }}</td>
                   <td>{{ item.type }}</td>
                   <td>{{ item.time }}</td>
+                  <td>{{ item.hot }}</td>
                   <td>{{ item.share ? '√' : '×' }}</td>
                   <td class="flex frow" style="gap: 4px;">
                     <a type="button" class="btn btn-outline-dark btn-sm" :href="item.address">下载投影</a>
                     <button class="btn btn-outline-success btn-sm" @click="handleShare(item.fname,item.type,true)">分享</button>
                     <button class="btn btn-outline-danger btn-sm" @click="handleShare(item.fname,item.type,false)">取消分享</button>
+                    <button v-if="canPreview(item.type_en)" class="btn btn-outline-primary btn-sm" @click="showPreview(item.type_en,item.fname)">预览</button>
                   </td>
                 </tr>
               </tbody>
@@ -182,6 +225,26 @@ function handleShare(fname, type, ashare) {
   justify-content: center;
   z-index: 99;
 }
+.preview-container {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ccc;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.preview {
+  width: 50vw;
+  height: 70vh;
+}
+@media (max-width:800px) {
+  .preview {
+    width: 70vw;
+    height: 70vh;
+  }
+}
 .modal-content {
   background: white;
   padding: 20px;
@@ -191,7 +254,21 @@ function handleShare(fname, type, ashare) {
   min-width: 30%;
 }
 .table-outer{
-  height: 40vh;
+  height: 70vh;
   overflow: auto;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

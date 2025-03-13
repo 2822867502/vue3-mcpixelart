@@ -111,12 +111,12 @@ const submit = () => {
     waitTask(apiReload({ fname }))
     .then(({image: img}) => {
       image.value = img
-      imageUtils.rebuildImage(img)
+      imageUtils.rebuildImage(blocksStore.xyMap, img)
       .then(url => {
         // reload成功
         imageSrc.value = url
         // 将地址存入history持久化
-        historyStore.historyManualAddress = fname
+        historyStore.setHistoryManualAddress(fname)
       })
       .catch(err => globalModal('失败', err))
     })

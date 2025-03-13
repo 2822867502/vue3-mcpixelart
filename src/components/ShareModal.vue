@@ -81,7 +81,9 @@ function share() {
           <p>没有自动下载? <a :href="address">点击这里下载</a></p>
           <p>现在您可以决定是否要分享到广场,让更多人看到您的精彩作品</p>
         </div>
-        
+        <div class="enhance-alert">
+          分享的作品必须<span class="emphasize">遵守法律法规、符合公序良俗</span>！违者责任自负。
+        </div>
         <div class="form-floating">
           <input type="text" class="form-control" id="floatingName" v-model="name">
           <label for="floatingName">名称*</label>
@@ -128,5 +130,16 @@ function share() {
 p {
   letter-spacing: .1rem;
   line-height: 1.5;
+}
+.enhance-alert {
+  width: 100%;
+  padding: 5px;
+  background-color: #332701;
+  border-left: 4px solid #997404;
+  color: #ffda6a;
+  margin: 10px 0;
+  .emphasize {
+    color: rgb(230, 133, 181)
+  }
 }
 </style>

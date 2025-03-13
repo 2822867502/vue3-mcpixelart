@@ -1,4 +1,5 @@
 import axios from "axios"
+import pako from "pako"
 import { useUserStore } from "../store/user"
 // 创建 axios 实例
 const service = axios.create({
@@ -9,11 +10,21 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   (config) => {
+    // 携带用户标识
     const userStore = useUserStore()
     const uuid = userStore.uuid
     if (uuid) {
       config.headers["X-IDENT"] = uuid
     }
+    // 使用pako压缩post请求体
+    if (config.method === 'post' && config.data) {
+      const compressedData = pako.gzip(JSON.stringify(config.data))
+      config.data = compressedData
+
+      config.headers['X-Encode'] = 'gzip'
+      config.headers['Content-Type'] = 'application/octet-stream'
+    }
+
     return config
   },
   (error) => {

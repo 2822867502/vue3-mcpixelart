@@ -26,11 +26,11 @@ export function apiUserLogin() {
 }
 
 /**根据uid得到用户名 */
-export function apiGetUname(params) {
+export function apiGetUname(data) {
   return request({
-    url: '/user/uname',
-    method: 'get',
-    params,
+    url: '/user/unamelist',
+    method: 'post',
+    data,
   })
 }
 

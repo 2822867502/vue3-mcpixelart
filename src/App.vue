@@ -32,6 +32,10 @@ import UserInfo from './components/UserInfo.vue'
 import { useUser } from './utils/userModal'
 const { userStatus, closeUser, showUser } = useUser()
 provide('userInfo', showUser)
+
+// import { apiGetTest, apiPostTest } from './api/test'
+// apiPostTest({po: [['s1','s2'], ['s3', 's4']]})
+// apiGetTest({fname: 'css'})
 </script>
 
 <template>

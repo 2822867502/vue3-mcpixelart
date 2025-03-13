@@ -1,5 +1,3 @@
-import { useBlocksStore } from '../store/blocksArt'
-const blocksStore = useBlocksStore()
 import BlockCSS from '../assets/img/BlockCSS.png'
 export default {
   /**
@@ -205,9 +203,10 @@ export default {
     return imageData
   },
   /**从二维数组重建图片
-   * @param {string[][]} array 
+   * @param {*} xyMap blocksArtStore的xyMap
+   * @param {string[][]} array 二维方块名数组
    */
-  rebuildImage(array) {
+  rebuildImage(xyMap, array) {
     return new Promise((resolve, reject) => {
       const img = new Image()
       img.src = BlockCSS
@@ -220,8 +219,8 @@ export default {
         const h = array.length
         const w = array[0].length
 
-        const newWidth = h * 8
-        const newHeight = w * 8
+        const newWidth = w * 8
+        const newHeight = h * 8
         canvas.width = newWidth
         canvas.height = newHeight
 
@@ -230,10 +229,11 @@ export default {
         for (let y = 0;y < h;y++) {
           for (let x = 0;x < w;x++) {
             let m,n
-            if (array[y][x] === 'air') {
+            const element = array[y][x].replace('minecraft:', '')
+            if (element === 'air') {
               [m, n] = [47, 47]
             } else {
-              [m, n] = blocksStore.xyMap[array[y][x]]
+              [m, n] = xyMap[element]
             }
             // 在 (x, y) 位置绘制从 (m, n) 处截取的 8x8 区域
             ctx.drawImage(img, m * 16, n * 16, 16, 16, x * 8, y * 8, 8, 8)
