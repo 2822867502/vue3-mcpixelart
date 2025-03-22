@@ -28,7 +28,7 @@ function handleFilterInput(event) {
     <select class="form-select bg-dark text-light" :value="opt.sort" @input="handleSortInput">
       <option value="random" selected>随机</option>
       <option value="new">最新发布</option>
-      <!-- <option value="hot">最热门</option> -->
+      <option value="hot">最多点赞</option>
     </select>
     <span class="input-group-text bg-dark text-light">筛选</span>
     <select class="form-select bg-dark text-light" :value="opt.filter" @input="handleFilterInput">

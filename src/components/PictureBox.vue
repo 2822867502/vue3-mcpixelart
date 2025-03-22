@@ -1,8 +1,12 @@
 <script setup>
 import { onUnmounted, watch, computed, ref } from 'vue'
 import imageUtils from '../utils/imageUtils'
+import ImagePreview from './ImagePreview.vue'
 const canvas = ref(null)
 const props = defineProps(['imgData', 'name'])
+
+// 展示预览图
+const showPreview = ref(false)
 
 const resizedImageData = computed(() => {
   if (props.imgData && imageSize.value.height * imageSize.value.width > 0) {
@@ -78,12 +82,12 @@ function paint() {
 
 <template>
   <div class="pic flex fcol">
-    <canvas ref="canvas"></canvas>
+    <canvas ref="canvas" @click="showPreview=true"></canvas>
     <div class="flex fcen">
       {{ props.name }} - {{ `${imageSize.width}*${imageSize.height}` }}
     </div>
   </div>
-  
+  <ImagePreview :imgData="imgData" :visiable="showPreview" @close="showPreview=false"></ImagePreview>
 </template>
 
 <style lang="less" scoped>
@@ -99,5 +103,6 @@ function paint() {
 }
 canvas {
   flex-grow: 1;
+  cursor: zoom-in;
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup>
-import { toRefs, inject, watch, ref, computed } from 'vue'
+import { toRefs, inject, watch, ref, computed, nextTick } from 'vue'
 import { apiShare } from '../api/share'
 import { downloadFile } from '../utils/autoDownload'
 const props = defineProps(['status'])
@@ -27,7 +27,11 @@ watch(status, () =>
   if (status.value.visiable && status.value.download) {
     const road = roadMap[status.value.type]
     address.value = `https://mcpixelart.com/${road}/${status.value.fname}`
-    downloadFile(address, status.value.fname)
+    // downloadFile(address, status.value.fname)
+    // 改用直接点击模态框里的下载链接实现自动下载
+    nextTick(() => {
+      downloadButton.value?.click()
+    })
   }
 }, {
   deep: true,
@@ -36,6 +40,7 @@ watch(status, () =>
 
 const name = ref('')
 const desc = ref('')
+const downloadButton = ref('')
 function formatStr(str) {
   return str.trim()
 }
@@ -78,7 +83,7 @@ function share() {
         <h3>分享</h3>
         <div v-if="status.download">
           <p>恭喜！制作成功。</p>
-          <p>没有自动下载? <a :href="address">点击这里下载</a></p>
+          <p>没有自动下载? <a :href="address" ref="downloadButton">点击这里下载</a></p>
           <p>现在您可以决定是否要分享到广场,让更多人看到您的精彩作品</p>
         </div>
         <div class="enhance-alert">
