@@ -87,6 +87,7 @@
    - artMaker.js *像素画制作算法*  
    - autoDownload.js *自动下载*  
    - dataStruct.js *自定义数据结构 Counter方块计数器*  
+   - fix.js *兼容性修补*
    - formatter.js *格式化*  
    - globalModal.js *普通模态框*  
    - imageUtils.js *图片解析*  

@@ -4,6 +4,9 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [vue()],
+  build: {
+    sourcemap: 'hidden',
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
