@@ -1,12 +1,27 @@
 <script setup>
 import NavBar from './NavBar.vue'
 import FootBar from './FootBar.vue'
+import { ref, onMounted } from 'vue'
+import bgPurpose from '../assets/img/bg_purpose.png'
+import bgBlue from '../assets/img/bg_blue.png'
+import bgGray from '../assets/img/bg_gray.png'
+import bgLightGray from '../assets/img/bg_lightgray.png'
+
+const bgStyle = ref()
+const bgImages = [bgPurpose, bgBlue, bgGray, bgLightGray]
+onMounted(() => {
+  // 随机选择一张背景图
+  const randomImg = bgImages[Math.floor(Math.random() * bgImages.length)]
+  bgStyle.value = {
+    backgroundImage: `url(${randomImg})`,
+  }
+})
 </script>
 
 <template>
   <NavBar></NavBar>
   <main>
-    <div class="bgc"></div>
+    <div class="bgc" :style="bgStyle"></div>
     <div class="content">
       <slot></slot>
     </div>
@@ -36,7 +51,6 @@ main .bgc {
   left: -160px;
   width: calc(100% + 320px);
   height: calc(100% + 320px);
-  background-image: url("../assets/img/bg_purpose.png");
   animation: slide 30s linear infinite;
   z-index: -1;
 }

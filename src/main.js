@@ -10,7 +10,12 @@ import './style.scss'
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
 
+import { setupErrorHandling } from './utils/errorReporter.js'
+
 const app = createApp(App)
+
+// 错误主动上报
+setupErrorHandling(app)
 
 const pinia = createPinia()
 app.use(pinia)

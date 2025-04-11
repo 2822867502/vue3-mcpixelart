@@ -5,18 +5,25 @@ const showUserInfo = inject(['userInfo'])
 
 <template>
   <nav class="flex frow">
-    <router-link to="/" class="cell">
-      <img src="@/assets/img/logo.png" alt="mcpixelart.com" width="30" height="24">
-      <span class="title">Minecraft 艺术</span>
-    </router-link>
-
-    <router-link to="/playground" class="cell" style="margin-left: auto;">
-      <img src="@/assets/svg/广场.svg" alt="广场" width="28" height="28">
-    </router-link>
-
-    <div class="cell user-icon" @click="showUserInfo">
-      <img src="@/assets/svg/用户.svg" alt="用户" width="28" height="28">
+    <div class="nav-left">
+      <router-link to="/" class="cell">
+        <img src="@/assets/img/logo.png" alt="mcpixelart.com" width="30" height="24">
+        <span class="title">Minecraft 艺术</span>
+      </router-link>
     </div>
+    <div class="nav-right flex frow">
+      <a class="cell github" href="https://github.com/TgkRuobin/vue3-mcpixelart" target="_blank" rel="noopener noreferrer">
+        <img src="@/assets/svg/github.svg" alt="github源码仓库" width="28" height="28">
+      </a>
+
+      <router-link to="/playground" class="cell">
+        <img src="@/assets/svg/广场.svg" alt="广场" width="28" height="28">
+      </router-link>
+
+      <div class="cell user-icon" @click="showUserInfo">
+        <img src="@/assets/svg/用户.svg" alt="用户" width="28" height="28">
+      </div>
+    </div> 
   </nav>
 </template>
 
@@ -33,7 +40,11 @@ nav {
   z-index: 2;
   top: 0;
 
+  justify-content: space-between;
   align-items: center;
+}
+.nav-right {
+  gap: 0px;
 }
 .title {
   text-decoration: none;
@@ -64,26 +75,32 @@ nav {
 }
 
 .user-icon::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    right: -6px;
-    bottom: -6px;
-    border-radius: 50%;
-    border: 2px solid rgb(255, 255, 255);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 255, 255);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
 }
  
 .user-icon:focus::before,
 .user-icon:hover::before {
-    opacity: 1;
+  opacity: 1;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 460px) {
   .title{
+    display: none;
+  }
+}
+
+@media (max-width: 280px) {
+  .github {
     display: none;
   }
 }

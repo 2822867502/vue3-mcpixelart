@@ -7,3 +7,11 @@
     }
   }
 })();
+
+// hash模式重定向为history模式
+(function() {
+  if (location.hash.startsWith('#/')) {
+    const newPath = location.hash.slice(1) // 去掉 `#`
+    location.replace(newPath)
+  }
+})();

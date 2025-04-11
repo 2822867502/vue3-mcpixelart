@@ -136,7 +136,8 @@ function showMethodHelp() {
   
   <div class="outer">
     <div class="alert alert-info" role="alert">
-      请选择.mid音乐文件,可从 <a href="https://midishow.com" target="_blank" rel="noopener noreferrer">MidiShow</a> 等网站下载
+      请选择.mid音乐文件,可从 <a href="https://midishow.com" target="_blank" rel="noopener noreferrer">MidiShow</a> 等网站下载.
+      <a href="https://www.bilibili.com/video/BV1YwAFepEt2" target="_blank" rel="noopener noreferrer">观看B站视频教程</a>
     </div>
     <div class="mb-3">
       <input class="form-control bg-dark text-light" type="file" accept=".mid" @change="handlerOpenMidiFile">

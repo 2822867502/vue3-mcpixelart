@@ -57,9 +57,11 @@ function gotoPage(i) {
 }
 
 watch(data, () => {
-  if (currentPage.value > totalPages.value) {
-    gotoPage(1)
-  }
+  // 每次刷新数据后回到第一页
+  gotoPage(1)
+  // if (currentPage.value > totalPages.value) {
+  //   gotoPage(1)
+  // }
 },{
   deep: true,
   immediate: false,

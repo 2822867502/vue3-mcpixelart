@@ -1,10 +1,12 @@
 <script setup>
 import { computed, onActivated, onMounted, ref } from 'vue'
+// 过滤器选项
 const opt = ref({
   sort: 'random',
   filter: 'all',
 })
 const data = ref([])
+// 当前页展示的12个作品
 const data12 = computed(() => {
   const p = currentPage.value - 1
   return data.value.slice(p * 12,p * 12 + 12)
@@ -31,7 +33,7 @@ const currentPage = ref(1)
 function handlePageChange(page) {
   currentPage.value = page
 }
-
+// 仅在初始化页面时请求一次数据
 onMounted(() => {
   loadData()
 })
