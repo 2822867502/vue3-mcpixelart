@@ -44,12 +44,30 @@ def create2dlite(data,dir,rot):
             for x in range(w):
                 if data[y][x] == 'air': continue
                 reg[0,h-y-1,w-x-1] = BlockState('minecraft:'+data[y][x])
-    else:
+    elif dir == 'x':
         reg = Region(0,0,0,w,h,1)
         for y in range(h):
             for x in range(w):
                 if data[y][x] == 'air': continue
                 reg[x,h-y-1,0] = BlockState('minecraft:'+data[y][x])
+    elif dir == 'z*':
+        reg = Region(0,0,0,w,h,h)
+        for y in range(h):
+            for x in range(w):
+                if data[y][x] == 'air': continue
+                reg[x,y,y] = BlockState('minecraft:'+data[y][x])
+    elif dir == 'y*':
+        reg = Region(0,0,0,h,h,w)
+        for y in range(h):
+            for x in range(w):
+                if data[y][x] == 'air': continue
+                reg[h-y-1,h-y-1,w-x-1] = BlockState('minecraft:'+data[y][x])
+    else:
+        reg = Region(0,0,0,w,h,h)
+        for y in range(h):
+            for x in range(w):
+                if data[y][x] == 'air': continue
+                reg[x,h-y-1,h-y-1] = BlockState('minecraft:'+data[y][x])
     # Region尺寸:东西方向 上下方向 南北方向
     # Region坐标增加的方向:西->东 下->上 北->南
     schem = reg.as_schematic(name="Unnamed Pixel Art", author="mcpixelart.com", description="Create your art of mc online.")
@@ -101,7 +119,7 @@ def pixel_post():
 
         if 'dir' in data:
             dir = data['dir']
-            if not dir in ['x','y','z']:
+            if not dir in ['x','y','z','x*','y*','z*']:#添加阶梯地图画相关dir added by zlk 2025-7-30 21:53
                 return jsonify({'error': '无效朝向'}), 400
         if 'rot' in data:
             rot = data['rot']

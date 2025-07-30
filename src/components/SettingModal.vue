@@ -25,6 +25,11 @@ const settingStore = useSettingStore()
               <option value="z-">下->上</option>
               <option value="y-">西->东</option>
               <option value="x-">北->南</option>
+              <!-- 实现阶梯像素画 added by zlk 2025-7-30 21:39 -->
+              <option value="y*">阶梯下降 东->西</option>
+              <option value="x*">阶梯下降 南->北</option>
+              <option value="y*-">阶梯下降 西->东</option>
+              <option value="x*-">阶梯下降 北->南</option>
             </select>
             <span>旋转(顺时针)</span>
             <select class="form-select" v-model="settingStore.Options.rotate">
