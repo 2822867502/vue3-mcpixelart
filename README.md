@@ -1,8 +1,14 @@
 # MCPixelArt - Minecraft 像素画/地图画、雕塑和红石音乐在线制作与分享平台
 
+**这是项目[MCPixelArt](https://github.com/TgkRuobin/vue3-mcpixelart)的一个分支**
+
 **MCPixelArt** 是一个专注于 Minecraft 像素画/地图画、雕塑和红石音乐创作的在线平台。用户可以通过我们的工具轻松设计和分享自己的作品，无论是像素画、雕塑还是复杂的红石音乐，都能在这里找到灵感和工具。
 
 This project is a platform dedicated to the online creation and sharing of Minecraft pixel art, sculptures, and redstone music, encompassing a complete frontend and backend.
+
+## 分支变化
+- **新增功能**: 实现阶梯下降地图画的生成
+- **修改文件**: 见[Commit e97ae11](https://github.com/2822867502/vue3-mcpixelart/commit/e97ae11cadc5e9a226d76fa79584b6aadf5fe153)
 
 ## 项目简介
 
